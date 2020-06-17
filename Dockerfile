@@ -2,6 +2,7 @@ FROM debian:jessie
 MAINTAINER https://github.com/helderco/
 
 # persistent / runtime deps
+
 RUN apt-get update && apt-get install -y --no-install-recommends \
       ca-certificates \
       curl \
