@@ -46,7 +46,7 @@ RUN OPENSSL_VERSION="1.0.2k" \
       && ./config && make && make install \
       && rm -rf /tmp/*
 
-ENV PHP_VERSION 5.3.29
+ENV PHP_VERSION 5.3.3
 
 # php 5.3 needs older autoconf
 # --enable-mysqlnd is included below because it's harder to compile after the fact the extensions are (since it's a plugin for several extensions, not an extension in itself)
@@ -62,12 +62,10 @@ RUN buildDeps=" \
       " \
       && set -x \
       && apt-get update && apt-get install -y $buildDeps --no-install-recommends && rm -rf /var/lib/apt/lists/* \
-      && curl -SL "http://php.net/get/php-$PHP_VERSION.tar.xz/from/this/mirror" -o php.tar.xz \
-      && curl -SL "http://php.net/get/php-$PHP_VERSION.tar.xz.asc/from/this/mirror" -o php.tar.xz.asc \
-      && gpg --verify php.tar.xz.asc \
+      && curl -SL "http://museum.php.net/php5/php-5.3.3.tar.gz" -o php.tar.xz \
       && mkdir -p /usr/src/php \
-      && tar -xof php.tar.xz -C /usr/src/php --strip-components=1 \
-      && rm php.tar.xz* \
+      && tar xvzf php-5.3.3.tar.gz -C /usr/src/php --strip-components=1 \
+      && rm php-5.3.3.tar.gz \
       && cd /usr/src/php \
       && ./configure \
             --with-config-file-path="$PHP_INI_DIR" \
